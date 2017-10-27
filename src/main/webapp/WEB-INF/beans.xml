@@ -1,0 +1,6 @@
+<beans>
+	<interceptors>
+		<class>br.com.straining.tx.GerenciadorDeTransacao</class>
+		<class>br.com.straining.tx.MedidorDeTempo</class>
+	</interceptors>
+</beans>

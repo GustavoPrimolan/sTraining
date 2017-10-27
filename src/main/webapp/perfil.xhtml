@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<ui:composition template="_template.xhtml">
+
+
+	<ui:define name="deslogar">
+	</ui:define>
+
+	<ui:define name="conteudo">
+
+		<h:form id="formPerfil">
+
+			<p:fieldset legend="Perfil">
+
+				<p:panelGrid columns="2">
+
+					<p:outputLabel value="Nome:" for="nome" />
+					<p:inputText id="nome" value="#{perfilBean.usuario.nome}"
+						required="True" requiredMessage="Nome obrigatório">
+						<f:ajax event="blur" render="messages" />
+					</p:inputText>
+
+
+					<p:outputLabel value="Data de Nascimento:" for="dataNascimento" />
+					<p:calendar id="dataNascimento"
+						value="#{perfilBean.usuario.dataNascimento.time}"
+						pattern="dd-MM-yyyy" mask="true" timeZone="America/Sao_Paulo">
+					</p:calendar>
+
+
+					<p:outputLabel value="Peso:" for="peso" />
+					<p:inputNumber id="peso" value="#{perfilBean.usuario.peso}"
+						minValue="0" maxValue="400" required="true" symbol=" kg"
+						symbolPosition="s" decimalSeparator="," thousandSeparator="."
+						decimalPlaces="2">
+						<p:ajax update="peso" />
+					</p:inputNumber>
+
+
+					<p:outputLabel value="Altura:" for="altura" />
+					<p:inputNumber id="altura" value="#{perfilBean.usuario.altura}"
+						minValue="0" maxValue="3" required="true" symbol=" m"
+						symbolPosition="s" decimalSeparator="," thousandSeparator="."
+						decimalPlaces="2">
+						<p:ajax update="altura" />
+					</p:inputNumber>
+
+					<p:outputLabel value="Sexo:" for="sexo" />
+					<p:selectOneMenu value="#{perfilBean.usuario.sexo}" id="sexo"
+						required="true">
+						<f:selectItem itemLabel="Selecione..." itemValue="#{null}" />
+						<f:selectItems value="#{perfilBean.sexos}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="Email:" for="email" />
+					<p:inputText id="email" value="#{perfilBean.usuario.email}"
+						required="True" requiredMessage="Email obrigatório">
+						<f:ajax event="blur" render="messages" />
+					</p:inputText>
+
+					<p:outputLabel value="Auto Descrição:" for="autodescricao" />
+					<p:inputTextarea id="autodescricao"
+						value="#{perfilBean.usuario.autoDescricao}">
+						<f:ajax event="blur" render="messages" />
+					</p:inputTextarea>
+
+				</p:panelGrid>
+			</p:fieldset>
+
+
+			<p:commandButton value="Atualizar"
+				actionListener="#{perfilBean.atualiza}" update="@form"
+				process="@form" style="margin:5px 0 40px 45%">
+				<p:confirm header="Confirmation" message="Você tem certeza?"
+					icon="ui-icon-alert" />
+			</p:commandButton>
+
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="Yes" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="No" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+
+		</h:form>
+
+
+	</ui:define>
+
+
+
+	<ui:define name="texto">
+		Perfil
+	</ui:define>
+</ui:composition>
+
+</html>

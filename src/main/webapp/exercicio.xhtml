@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<ui:composition template="_template.xhtml">
+
+
+	<ui:define name="deslogar">
+	</ui:define>
+
+	<ui:define name="conteudo">
+
+
+		<h:form id="formExercicio">
+
+			<p:messages id="messages" />
+
+			<p:fieldset legend="Exercício">
+				<p:panelGrid columns="2">
+
+					<p:outputLabel value="Nome:" for="nome" />
+					<p:inputText id="nome" value="#{exercicioBean.exercicio.nome}"
+						required="True" requiredMessage="Nome do exercício obrigatório">
+						<f:ajax event="blur" render="messages" />
+					</p:inputText>
+
+					<p:outputLabel value="Grupo Muscular:" for="gmuscular" />
+					<p:selectOneMenu value="#{exercicioBean.exercicio.grupoMuscular}"
+						id="gmuscular" required="True">
+						<f:selectItem itemLabel="Selecione..." itemValue="#{null}" />
+						<f:selectItems value="#{exercicioBean.gruposMusculares}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="Antagonista:" for="antagonista" />
+					<p:selectOneMenu value="#{exercicioBean.exercicio.antagonista}"
+						id="antagonista">
+						<f:selectItem itemLabel="Selecione..." itemValue="#{null}" />
+						<f:selectItems value="#{exercicioBean.gruposMusculares}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="Nível Antagonista:" for="nantagonista" />
+					<p:selectOneMenu
+						value="#{exercicioBean.exercicio.nivelAntagonista}"
+						id="nantagonista">
+						<f:selectItem itemLabel="Selecione..." itemValue="#{null}" />
+						<f:selectItems value="#{exercicioBean.niveisAntagonistas}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="Execução:" for="execucao" />
+					<p:selectOneMenu value="#{exercicioBean.exercicio.execucao}"
+						id="execucao" required="True">
+						<f:selectItem itemLabel="Selecione..." itemValue="#{null}" />
+						<f:selectItems value="#{exercicioBean.execucoes}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="Descrição:" for="descricao" />
+					<p:inputText id="descricao"
+						value="#{exercicioBean.exercicio.descricao}">
+						<f:ajax event="blur" render="messages" />
+					</p:inputText>
+
+				</p:panelGrid>
+			</p:fieldset>
+
+
+			<p:commandButton value="Inserir Exercício"
+				action="#{exercicioBean.gravar}" process="@form"
+				update="@form :formTabelaExercicios:tabelaExercicio" style="margin:5px 0 40px 45%;"/>
+
+		</h:form>
+
+		<h:form id="formTabelaExercicios">
+
+			<p:dataTable id="tabelaExercicio"
+				value="#{exercicioBean.exercicioDataModel}" var="exercicio"
+				paginator="true" rows="10" lazy="true">
+				
+				
+				<f:facet name="header">Exercícios Registrados</f:facet>
+				
+				<p:column headerText="Nome" sortBy="#{exercicio.nome}"
+					filterBy="#{exercicio.nome}" filterMatchMode="startsWith">
+					<h:outputText value="#{exercicio.nome}" />
+				</p:column>
+				
+				
+				<p:column headerText="Grupo Muscular" sortBy="#{exercicio.grupoMuscular}"
+					filterBy="#{exercicio.grupoMuscular}" filterMatchMode="startsWith">
+					<h:outputText value="#{exercicio.grupoMuscular}" />
+				</p:column>
+				
+				<p:column headerText="Antagonista" sortBy="#{exercicio.antagonista}"
+					filterBy="#{exercicio.antagonista}" filterMatchMode="startsWith">
+					<h:outputText value="#{exercicio.antagonista}" />
+				</p:column>
+				
+				<p:column headerText="Nível Antagonista" sortBy="#{exercicio.nivelAntagonista}"
+					filterBy="#{exercicio.nivelAntagonista}" filterMatchMode="startsWith">
+					<h:outputText value="#{exercicio.nivelAntagonista}" />
+				</p:column>
+				
+				<p:column headerText="Execução" sortBy="#{exercicio.execucao}"
+					filterBy="#{exercicio.execucao}" filterMatchMode="startsWith">
+					<h:outputText value="#{exercicio.execucao}" />
+				</p:column>
+					
+				<p:column headerText="Descrição" sortBy="#{exercicio.descricao}"
+					filterBy="#{exercicio.descricao}" filterMatchMode="startsWith">
+					<h:outputText value="#{exercicio.descricao}" />
+				</p:column>
+				
+
+				<p:column headerText="Alterar">
+					<p:commandButton icon="fa fa-fw fa-edit"
+						action="#{exercicioBean.carregar(exercicio)}"
+						update=":formExercicio" />
+				</p:column>
+
+				<p:column headerText="Remover">
+					<p:commandButton icon="fa fa-fw fa-remove"
+						action="#{exercicioBean.remover(exercicio)}" update="@form" />
+				</p:column>
+
+			</p:dataTable>
+		</h:form>
+
+
+	</ui:define>
+
+
+
+	<ui:define name="texto">
+		Gerador de Treinos
+	</ui:define>
+</ui:composition>
+
+</html>
