@@ -7,6 +7,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import br.com.straining.modelo.Exercicio;
+
 
 @SuppressWarnings("serial")
 public class DAO<T> implements Serializable{
@@ -62,7 +64,9 @@ public class DAO<T> implements Serializable{
 
 		return (int) result;
 	}
-
+	
+	
+	//LISTA TODOS APENAS UMA COLUNA
 	public List<T> listaTodosPaginada(int firstResult, int maxResults, String coluna, String valor) {
 		CriteriaQuery<T> query = em.getCriteriaBuilder().createQuery(classe);
 		Root<T> root = query.from(classe);
@@ -74,7 +78,8 @@ public class DAO<T> implements Serializable{
 
 		return lista;
 	}
-
+	
+	
 	public int quantidadeDeElementos() {
 
 		long result = (Long) em.createQuery("SELECT COUNT(n) FROM " + classe.getSimpleName() + " n").getSingleResult();

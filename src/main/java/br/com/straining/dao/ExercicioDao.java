@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import br.com.straining.modelo.Exercicio;
 
@@ -60,5 +61,24 @@ public class ExercicioDao implements Serializable{
 
 		return this.dao.listaTodosPaginada(inicio, quantidade, string, titulo);
 	}
+	
+	
+	//LISTA TODOS PELO OBJETO E NÃO PELO CAMPO
+	public List<Exercicio> listaTodosPaginada(int inicio, int quantidade, Exercicio exercicio) {
+		
+		String jpql = "select e from Exercicio e where e.nome like :pNome or e.grupoMuscular like :pGrupoMuscular or e.execucao like :pExecucao";
+		
+		
+		Query query = em.createQuery(jpql);
+		query.setParameter("pNome", exercicio.getNome()+"%");
+		query.setParameter("pGrupoMuscular", exercicio.getGrupoMuscular());
+		query.setParameter("pExecucao", exercicio.getExecucao());
+		
+		List<Exercicio> listaExercicios = query.setFirstResult(inicio).setMaxResults(quantidade).getResultList();
+		
+		return listaExercicios;
+	}
+	
+	
 	
 }

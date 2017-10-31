@@ -58,61 +58,80 @@
 					</p:selectOneMenu>
 
 					<p:outputLabel value="Descrição:" for="descricao" />
-					<p:inputText id="descricao"
+					<p:inputTextarea id="descricao"
 						value="#{exercicioBean.exercicio.descricao}">
 						<f:ajax event="blur" render="messages" />
-					</p:inputText>
+					</p:inputTextarea>
 
 				</p:panelGrid>
 			</p:fieldset>
 
 
-			<p:commandButton value="Inserir Exercício"
-				action="#{exercicioBean.gravar}" process="@form"
-				update="@form :formTabelaExercicios:tabelaExercicio" style="margin:5px 0 40px 45%;"/>
+			<p:commandButton value="Gravar" action="#{exercicioBean.gravar}"
+				process="@form"
+				update="@form :formTabelaExercicios:tabelaExercicios"
+				style="margin:5px 0 40px 45%;" />
 
 		</h:form>
 
 		<h:form id="formTabelaExercicios">
 
-			<p:dataTable id="tabelaExercicio"
-				value="#{exercicioBean.exercicioDataModel}" var="exercicio"
-				paginator="true" rows="10" lazy="true">
-				
-				
+			<p:dataTable var="exercicio"
+				value="#{exercicioBean.exercicioDataModel}" paginator="true"
+				rows="10"
+				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+				rowsPerPageTemplate="5,10,15" id="tabelaExercicios" lazy="true"
+				widgetVar="tabelaExercicios">
+
 				<f:facet name="header">Exercícios Registrados</f:facet>
-				
+
 				<p:column headerText="Nome" sortBy="#{exercicio.nome}"
 					filterBy="#{exercicio.nome}" filterMatchMode="startsWith">
 					<h:outputText value="#{exercicio.nome}" />
 				</p:column>
-				
-				
-				<p:column headerText="Grupo Muscular" sortBy="#{exercicio.grupoMuscular}"
-					filterBy="#{exercicio.grupoMuscular}" filterMatchMode="startsWith">
+
+				<p:column headerText="Grupo Muscular"
+					sortBy="#{exercicio.grupoMuscular}"
+					filterBy="#{exercicio.grupoMuscular}">
+
+					<f:facet name="filter">
+						<p:selectOneMenu onchange="PF('tabelaExercicios').filter()">
+							<f:selectItem itemLabel="Selecione..." itemValue="#{null}"
+								noSelectionOption="true" />
+							<f:selectItems value="#{exercicioBean.gruposMusculares}" />
+						</p:selectOneMenu>
+					</f:facet>
+
 					<h:outputText value="#{exercicio.grupoMuscular}" />
 				</p:column>
-				
-				<p:column headerText="Antagonista" sortBy="#{exercicio.antagonista}"
-					filterBy="#{exercicio.antagonista}" filterMatchMode="startsWith">
+
+				<p:column headerText="Antagonista" sortBy="#{exercicio.antagonista}">
 					<h:outputText value="#{exercicio.antagonista}" />
 				</p:column>
-				
-				<p:column headerText="Nível Antagonista" sortBy="#{exercicio.nivelAntagonista}"
-					filterBy="#{exercicio.nivelAntagonista}" filterMatchMode="startsWith">
+
+				<p:column headerText="Nível Antagonista"
+					sortBy="#{exercicio.nivelAntagonista}">
 					<h:outputText value="#{exercicio.nivelAntagonista}" />
 				</p:column>
-				
+
 				<p:column headerText="Execução" sortBy="#{exercicio.execucao}"
-					filterBy="#{exercicio.execucao}" filterMatchMode="startsWith">
+					filterBy="#{exercicio.execucao}">
+
+					<f:facet name="filter">
+						<p:selectOneMenu onchange="PF('tabelaExercicios').filter()">
+							<f:selectItem itemLabel="Selecione..." itemValue="#{null}"
+								noSelectionOption="true" />
+							<f:selectItems value="#{exercicioBean.gruposMusculares}" />
+						</p:selectOneMenu>
+					</f:facet>
+
 					<h:outputText value="#{exercicio.execucao}" />
 				</p:column>
-					
-				<p:column headerText="Descrição" sortBy="#{exercicio.descricao}"
-					filterBy="#{exercicio.descricao}" filterMatchMode="startsWith">
+
+				<p:column headerText="Descrição">
 					<h:outputText value="#{exercicio.descricao}" />
 				</p:column>
-				
+
 
 				<p:column headerText="Alterar">
 					<p:commandButton icon="fa fa-fw fa-edit"
@@ -134,7 +153,7 @@
 
 
 	<ui:define name="texto">
-		Gerador de Treinos
+		Exercícios
 	</ui:define>
 </ui:composition>
 

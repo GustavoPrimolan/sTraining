@@ -29,8 +29,9 @@
 
 					<p:outputLabel value="Data de Nascimento:" for="dataNascimento" />
 					<p:calendar id="dataNascimento"
-						value="#{perfilBean.usuario.dataNascimento.time}"
-						pattern="dd-MM-yyyy" mask="true" timeZone="America/Sao_Paulo">
+						value="#{perfilBean.usuario.dataNascimento.time}" pattern="dd/MM/yyyy"
+						mask="true" timeZone="America/Sao_Paulo" effect="fold"
+						required="true">
 					</p:calendar>
 
 
@@ -72,24 +73,48 @@
 
 				</p:panelGrid>
 			</p:fieldset>
+			
+			<p:fieldset legend="Suas restrições">
+				<p:panelGrid columns="4">
+					<p:outputLabel value="Selecione Restrição:" for="restricaoFisica" />
+					<p:selectOneMenu value="#{perfilBean.restricaoFisicaId}" id="restricaoFisica">
+						<f:selectItems value="#{perfilBean.restricoesFisicas}" var="restricaoFisica"
+							itemLabel="#{restricaoFisica.articulacao}" itemValue="#{restricaoFisica.id}" />
+					</p:selectOneMenu>
+
+					<p:commandButton value="Gravar Restrição"
+						action="#{perfilBean.gravarRestricaoFisica}" process="@this restricaoFisica"
+						update="tabelaRestricoesFisicas">
+					</p:commandButton>
+
+					<p:commandLink value="ou cadastrar uma nova restrição"
+						action="restricao?faces-redirect=true" immediate="true" update="@all" />
+				</p:panelGrid>
 
 
-			<p:commandButton value="Atualizar"
-				actionListener="#{perfilBean.atualiza}" update="@form"
-				process="@form" style="margin:5px 0 40px 45%">
-				<p:confirm header="Confirmation" message="Você tem certeza?"
-					icon="ui-icon-alert" />
-			</p:commandButton>
+				<p:dataList value="#{perfilBean.restricoesFisicasDoUsuario}" var="restricaoFisica"
+					id="tabelaRestricoesFisicas" emptyMessage="Nenhuma restrição física">
+					<p:column>
+						<h:outputText value="#{restricaoFisica.articulacao}"/>
+					</p:column>
+					
+					
+					<p:column>
+						<p:commandButton icon="fa fa-fw fa-remove"
+							action="#{perfilBean.removeRestricaoFisica(restricaoFisica)}" update="tabelaRestricoesFisicas"
+							process="@this" />
+					</p:column>
+				</p:dataList>
 
-			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-				<p:commandButton value="Yes" type="button"
-					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-				<p:commandButton value="No" type="button"
-					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-			</p:confirmDialog>
+			</p:fieldset>
+			
+			
+			<p:commandButton value="Atualizar" update="@form" process="@form"
+				style="margin:5px 0 40px 45%"
+				actionListener="#{perfilBean.atualizaUsuario}"
+				styleClass="ui-priority-primary" />
 
 		</h:form>
-
 
 	</ui:define>
 

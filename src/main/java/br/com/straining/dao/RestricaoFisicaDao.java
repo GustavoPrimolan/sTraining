@@ -27,4 +27,8 @@ public class RestricaoFisicaDao implements Serializable{
 		return dao.listaTodos();
 	}
 	
+	public RestricaoFisica buscaPorId(Integer id) {
+		return dao.buscaPorId(id);
+	}
+	
 }

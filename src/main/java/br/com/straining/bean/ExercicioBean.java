@@ -10,9 +10,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.straining.dao.ExercicioDao;
-import br.com.straining.enums.Execucao;
-import br.com.straining.enums.GrupoMuscular;
-import br.com.straining.enums.Nivel;
 import br.com.straining.modelo.Exercicio;
 import br.com.straining.modelo.ExercicioDataModel;
 import br.com.straining.tx.Log;
@@ -21,28 +18,26 @@ import br.com.straining.tx.Transacional;
 @SuppressWarnings("serial")
 @Named
 @ViewScoped
-public class ExercicioBean implements Serializable{
-	
+public class ExercicioBean implements Serializable {
+
 	@Inject
 	ExercicioDao exercicioDao;
-	
-	
+
 	@Inject
 	ExercicioDataModel exercicioDataModel;
-	
+
 	@Inject
 	private FacesContext context;
-	
+
 	private Exercicio exercicio = new Exercicio();
-	
-	
-	private List<String> gruposMusculares = Arrays.asList("PEITO", "BICEPS", "TRICEPS", "PERNAS", "COSTAS", "OMBROS", "ANTEBRAÇOS", "ABDOMENAIS", "GLUTEOS");
-	
-	
+
+	private List<String> gruposMusculares = Arrays.asList("PEITO", "BICEPS", "TRICEPS", "PERNAS", "COSTAS", "OMBROS",
+			"ANTEBRAÇOS", "ABDOMENAIS", "GLUTEOS");
+
 	private List<String> niveisAntagonistas = Arrays.asList("BAIXO", "MEDIO", "ALTO");
-	
+
 	private List<String> execucoes = Arrays.asList("MAQUINA", "LIVRE");
-	
+
 	public List<String> getExecucoes() {
 		return execucoes;
 	}
@@ -51,15 +46,6 @@ public class ExercicioBean implements Serializable{
 		this.execucoes = execucoes;
 	}
 
-	public ExercicioDataModel getExercicioDataModel() {
-		return exercicioDataModel;
-	}
-
-	public void setExercicioDataModel(ExercicioDataModel exercicioDataModel) {
-		this.exercicioDataModel = exercicioDataModel;
-	}
-
-	
 	public List<String> getGruposMusculares() {
 		return gruposMusculares;
 	}
@@ -83,6 +69,14 @@ public class ExercicioBean implements Serializable{
 	public void setExercicio(Exercicio exercicio) {
 		this.exercicio = exercicio;
 	}
+	
+	public ExercicioDataModel getExercicioDataModel() {
+		return exercicioDataModel;
+	}
+
+	public void setExercicioDataModel(ExercicioDataModel exercicioDataModel) {
+		this.exercicioDataModel = exercicioDataModel;
+	}
 
 	@Log
 	@Transacional
@@ -90,7 +84,7 @@ public class ExercicioBean implements Serializable{
 
 		return this.exercicioDao.listaTodos();
 	}
-	
+
 	@Transacional
 	public void gravar() {
 		System.out.println("Gravando exercicio: " + this.exercicio.getNome());
@@ -104,7 +98,7 @@ public class ExercicioBean implements Serializable{
 		this.exercicio = new Exercicio();
 
 	}
-	
+
 	@Transacional
 	public void remove(Exercicio exericio) {
 		System.out.println("Removendo exercicio");
@@ -118,5 +112,5 @@ public class ExercicioBean implements Serializable{
 		this.exercicio = exercicio;
 	}
 
-	
+
 }

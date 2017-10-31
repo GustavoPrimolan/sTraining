@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -20,33 +21,33 @@ import br.com.straining.enums.Sexo;
 
 @SuppressWarnings("serial")
 @Entity
-public class Usuario implements Serializable{
+public class Usuario implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	private String nome;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	private Calendar dataNascimento;
+	@Temporal(TemporalType.DATE)
+	private Calendar dataNascimento = new GregorianCalendar();
 
 	private BigDecimal peso;
-	
+
 	private BigDecimal altura;
-	
+
 	private Sexo sexo;
 
-	@OneToMany(fetch = FetchType.EAGER)
-	private List<RestricaoFisica> restricoes = new ArrayList<RestricaoFisica>();
-	
+	@ManyToMany(fetch = FetchType.EAGER)
+	private List<RestricaoFisica> restricoesFisicas = new ArrayList<RestricaoFisica>();
+
 	@ManyToMany(fetch = FetchType.EAGER)
 	private List<Treino> treinos = new ArrayList<Treino>();
-	
+
 	private String email;
-	
+
 	private String senha;
-	
+
 	private String autoDescricao;
 
 	public String getAutoDescricao() {
@@ -104,13 +105,25 @@ public class Usuario implements Serializable{
 	public void setSexo(Sexo sexo) {
 		this.sexo = sexo;
 	}
-	
-	public List<RestricaoFisica> getRestricoes() {
-		return restricoes;
+
+	public void removeRestricaoFisica(RestricaoFisica restricaoFisica) {
+		this.restricoesFisicas.remove(restricaoFisica);
 	}
 
-	public void setRestricoes(List<RestricaoFisica> restricoes) {
-		this.restricoes = restricoes;
+	public void adicionaRestricaoFisica(RestricaoFisica restricaoFisica) {
+		this.restricoesFisicas.add(restricaoFisica);
+	}
+
+	public List<RestricaoFisica> getRestricoesFisicas() {
+		return restricoesFisicas;
+	}
+
+	public void setRestricoesFisicas(List<RestricaoFisica> restricoesFisicas) {
+		this.restricoesFisicas = restricoesFisicas;
+	}
+
+	public void removeTreino(Treino treino) {
+		this.treinos.remove(treino);
 	}
 
 	public void setTreinos(List<Treino> treinos) {
@@ -124,7 +137,7 @@ public class Usuario implements Serializable{
 	public List<Treino> getTreinos() {
 		return treinos;
 	}
-	
+
 	public String getEmail() {
 		return email;
 	}
@@ -140,6 +153,5 @@ public class Usuario implements Serializable{
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	
-	
+
 }
