@@ -30,5 +30,20 @@ public class RestricaoFisicaDao implements Serializable{
 	public RestricaoFisica buscaPorId(Integer id) {
 		return dao.buscaPorId(id);
 	}
+
+
+	public void adiciona(RestricaoFisica restricaoFisica) {
+		dao.adiciona(restricaoFisica);
+	}
+
+
+	public void atualiza(RestricaoFisica restricaoFisica) {
+		dao.atualiza(restricaoFisica);
+	}
+
+
+	public void remove(RestricaoFisica restricaoFisica) {
+		dao.remove(restricaoFisica);
+	}
 	
 }

@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import br.com.straining.enums.GrupoMuscular;
 import br.com.straining.modelo.Exercicio;
 
 @SuppressWarnings("serial")
@@ -79,6 +80,17 @@ public class ExercicioDao implements Serializable{
 		return listaExercicios;
 	}
 	
+	
+	public List<Exercicio> listaPorGrupoMuscular(GrupoMuscular grupoMuscular){
+		String jpql = "select e from Exercicio e where e.grupoMuscular like :pGrupoMuscular";
+		
+		Query query = em.createQuery(jpql);
+		query.setParameter("pGrupoMuscular", grupoMuscular);
+		
+		List<Exercicio> listaExercicios = query.getResultList();
+		
+		return listaExercicios;
+	}
 	
 	
 }

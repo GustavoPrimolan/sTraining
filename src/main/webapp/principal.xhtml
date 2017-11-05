@@ -13,11 +13,37 @@
 	</ui:define>
 
 	<ui:define name="conteudo">
-		
-		
-		
+
+		<h:form id="formTreinos">
+			<p:dataGrid var="treino" value="#{treinoBean.treinos}" columns="3"
+				layout="grid" rows="12" paginator="true" id="cars"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="6,12,16" emptyMessage="Não há treinos">
+
+				<f:facet name="header">
+            		Treinos
+       			</f:facet>
+
+				<p:panel header="#{treino.id}" style="text-align:center">
+					<h:panelGrid columns="1" style="width:100%">
+
+						<h:outputText value="#{treino.nome}" />
+						<h:outputText value="#{treino.dataCriacao}" />
+						
+						<p:commandLink update="" process="">
+							<h:outputText styleClass="ui-icon ui-icon-search"
+								style="margin:0 auto;" />
+						</p:commandLink>
+					</h:panelGrid>
+				</p:panel>
+
+			</p:dataGrid>
+
+
+		</h:form>
+
 	</ui:define>
-	
+
 	<ui:define name="texto">
 		Principal
 	</ui:define>

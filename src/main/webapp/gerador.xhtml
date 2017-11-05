@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<ui:composition template="_template.xhtml">
+
+	<ui:define name="deslogar">
+	</ui:define>
+
+	<ui:define name="conteudo">
+
+		<h:form>
+			<p:growl id="growl" />
+
+			<h3>Gerador de Treinos</h3>
+			<p:commandButton value="Gerar" type="button"
+				onclick="PF('pbAjax').start();PF('btnComecar').disable();"
+				widgetVar="btnComecar" />
+			<p:commandButton value="Cancelar"
+				actionListener="#{geradorBean.cancel}"
+				oncomplete="PF('pbAjax').cancel();PF('btnComecar').enable();" />
+			<br />
+			<br />
+			<p:progressBar widgetVar="pbAjax" ajax="true"
+				value="#{geradorBean.progress}" labelTemplate="{value}%"
+				styleClass="animated" global="false" event="complete"
+				listener="#{geradorBean.onComplete}" update="growl"
+				oncomplete="PF('btnComecar').enable()" style="margin:0 0 40px 0"/>
+
+		</h:form>
+
+
+		<h:form id="formPerfil">
+
+			<p:fieldset legend="Treino">
+
+				<p:panelGrid columns="2">
+
+					<p:outputLabel value="Nome do treino:" for="nome" />
+					<p:inputText id="nome" value="#{geradorBean.treino.nome}"
+						required="True" requiredMessage="Nome obrigatório">
+						<f:ajax event="blur" render="messages" />
+					</p:inputText>
+
+				</p:panelGrid>
+			</p:fieldset>
+		</h:form>
+		
+		
+		<h:form id="treinoGerado" style="visible:false;">
+			<p:dataTable var="grupoMuscular" value="#{geradorBean.gruposMusculares}" emptyMessage="Treino ainda não gerado">
+				<f:facet name="header">
+            		Treino
+        		</f:facet>
+
+				<p:columnGroup type="header">
+					<p:row>
+						<p:column rowspan="2" headerText="Nome Exercício" />
+					</p:row>
+				</p:columnGroup>
+
+				<p:subTable var="exercicioPeito" value="#{geradorBean.exerciciosPeito}">
+					<f:facet name="header">
+						<h:outputText value="Peito" />
+					</f:facet>
+					<p:column>
+						<h:outputText value="#{exercicioPeito.nome}" />
+					</p:column>
+				</p:subTable>
+
+				<p:subTable var="exercicioCostas" value="#{geradorBean.exerciciosCostas}">
+					<f:facet name="header">
+						<h:outputText value="Costas" />
+					</f:facet>
+					<p:column>
+						<h:outputText value="#{exercicioCostas.nome}" />
+					</p:column>
+				</p:subTable>
+				
+				
+				<p:subTable var="exercicioPeito" value="#{geradorBean.exerciciosPeito}">
+					<f:facet name="header">
+						<h:outputText value="Peito" />
+					</f:facet>
+					<p:column>
+						<h:outputText value="#{exercicioPeito.nome}" />
+					</p:column>
+				</p:subTable>
+				
+			</p:dataTable>
+		</h:form>
+
+
+	</ui:define>
+
+	<style type="text/css">
+.animated .ui-progressbar-value {
+	background-image:
+		url("https://www.primefaces.org/showcase/javax.faces.resource/demo/images/pbar-ani.gif.xhtml");
+}
+</style>
+
+	<script type="text/javascript">
+		function start() {
+			PF('btnComecar').disable();
+
+			window['progress'] = setInterval(
+					function() {
+						var pbClient = PF('pbClient'), oldValue = pbClient
+								.getValue(), newValue = oldValue + 10;
+
+						pbClient.setValue(pbClient.getValue() + 10);
+
+						if (newValue === 100) {
+							clearInterval(window['progress']);
+						}
+
+					}, 1000);
+		}
+
+		function cancel() {
+			clearInterval(window['progress']);
+			PF('pbClient').setValue(0);
+			PF('btnComecar').enable();
+		}
+	</script>
+
+
+	<ui:define name="texto">
+		Gerador de Treinos
+	</ui:define>
+</ui:composition>
+
+</html>

@@ -1,15 +1,20 @@
 package br.com.straining.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.straining.dao.ExercicioDao;
+import br.com.straining.enums.Execucao;
+import br.com.straining.enums.GrupoMuscular;
+import br.com.straining.enums.Nivel;
 import br.com.straining.modelo.Exercicio;
 import br.com.straining.modelo.ExercicioDataModel;
 import br.com.straining.tx.Log;
@@ -31,12 +36,27 @@ public class ExercicioBean implements Serializable {
 
 	private Exercicio exercicio = new Exercicio();
 
-	private List<String> gruposMusculares = Arrays.asList("PEITO", "BICEPS", "TRICEPS", "PERNAS", "COSTAS", "OMBROS",
-			"ANTEBRAÇOS", "ABDOMENAIS", "GLUTEOS");
+	private List<String> gruposMusculares = new ArrayList<String>();
 
-	private List<String> niveisAntagonistas = Arrays.asList("BAIXO", "MEDIO", "ALTO");
+	private List<String> niveisAntagonistas = new ArrayList<String>();
 
-	private List<String> execucoes = Arrays.asList("MAQUINA", "LIVRE");
+	private List<String> execucoes = new ArrayList<String>();
+
+	@PostConstruct
+	public void init() {
+		for (int i = 0; i < GrupoMuscular.values().length; i++) {
+			gruposMusculares.add(GrupoMuscular.values()[i].toString());
+		}
+		
+		for (int i = 0; i < Nivel.values().length; i++) {
+			niveisAntagonistas.add(Nivel.values()[i].toString());
+		}
+		
+		for (int i = 0; i < Execucao.values().length; i++) {
+			execucoes.add(Execucao.values()[i].toString());
+		}
+		
+	}
 
 	public List<String> getExecucoes() {
 		return execucoes;
@@ -69,7 +89,7 @@ public class ExercicioBean implements Serializable {
 	public void setExercicio(Exercicio exercicio) {
 		this.exercicio = exercicio;
 	}
-	
+
 	public ExercicioDataModel getExercicioDataModel() {
 		return exercicioDataModel;
 	}
@@ -111,6 +131,5 @@ public class ExercicioBean implements Serializable {
 
 		this.exercicio = exercicio;
 	}
-
 
 }

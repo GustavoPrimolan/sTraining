@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -26,8 +27,11 @@ public class Treino implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar dataCriacao = Calendar.getInstance();
 	
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.LAZY)
 	private List<Exercicio> exercicios = new ArrayList<Exercicio>();
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Usuario usuario;
 
 	public Integer getId() {
 		return id;
@@ -45,6 +49,14 @@ public class Treino implements Serializable {
 		this.nome = nome;
 	}
 
+	public Calendar getDataCriacao() {
+		return dataCriacao;
+	}
+
+	public void setDataCriacao(Calendar dataCriacao) {
+		this.dataCriacao = dataCriacao;
+	}
+
 	public List<Exercicio> getExercicios() {
 		return exercicios;
 	}
@@ -53,4 +65,12 @@ public class Treino implements Serializable {
 		this.exercicios = exercicios;
 	}
 
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+	
 }

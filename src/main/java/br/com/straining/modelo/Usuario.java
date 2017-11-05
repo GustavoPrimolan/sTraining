@@ -41,7 +41,7 @@ public class Usuario implements Serializable {
 	@ManyToMany(fetch = FetchType.EAGER)
 	private List<RestricaoFisica> restricoesFisicas = new ArrayList<RestricaoFisica>();
 
-	@ManyToMany(fetch = FetchType.EAGER)
+	@OneToMany(fetch = FetchType.LAZY)
 	private List<Treino> treinos = new ArrayList<Treino>();
 
 	private String email;

@@ -8,19 +8,14 @@
 
 <ui:composition template="_template.xhtml">
 
-	<f:metadata>
-		<f:viewParam name="livroId" value="#{livroBean.livroId}" />
-		<f:viewAction action="#{livroBean.carregarLivroPelaId}"
-			if="#{param.livroId != null}" />
-	</f:metadata>
-
 	<ui:define name="deslogar">
 	</ui:define>
 
-	<!-- DEFINE O CONTEUDO DE ACORDO COM O TEMPLATE -->
 	<ui:define name="conteudo">
 
 	</ui:define>
+	
+	
 	<ui:define name="texto">
 		Gerador de Treinos
 	</ui:define>
