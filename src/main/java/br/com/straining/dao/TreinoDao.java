@@ -39,9 +39,11 @@ public class TreinoDao implements Serializable{
 	}
 	
 	
-	//PEGAR TODOS OS TREINOS VINCULADOS AO USUÁRIO
+	public void adiciona(Treino treino) {
+		dao.adiciona(treino);
+	}
 	
-	//ATUALIZAR CERTO EXERCÍCIO DO TREINO, PODENDO ATUALIZAR
+	
 	
 	
 	

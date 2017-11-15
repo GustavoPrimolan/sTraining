@@ -8,6 +8,8 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -35,13 +37,14 @@ public class Usuario implements Serializable {
 	private BigDecimal peso;
 
 	private BigDecimal altura;
-
+	
+	@Enumerated(EnumType.STRING)
 	private Sexo sexo;
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	private List<RestricaoFisica> restricoesFisicas = new ArrayList<RestricaoFisica>();
 
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.EAGER)
 	private List<Treino> treinos = new ArrayList<Treino>();
 
 	private String email;

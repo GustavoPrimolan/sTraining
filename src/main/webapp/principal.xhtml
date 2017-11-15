@@ -15,8 +15,8 @@
 	<ui:define name="conteudo">
 
 		<h:form id="formTreinos">
-			<p:dataGrid var="treino" value="#{treinoBean.treinos}" columns="3"
-				layout="grid" rows="12" paginator="true" id="cars"
+			<p:dataGrid var="treino" value="#{principalBean.treinos}" columns="3"
+				layout="grid" rows="12" paginator="true" id="treinos"
 				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="6,12,16" emptyMessage="Não há treinos">
 
@@ -28,7 +28,8 @@
 					<h:panelGrid columns="1" style="width:100%">
 
 						<h:outputText value="#{treino.nome}" />
-						<h:outputText value="#{treino.dataCriacao}" />
+						<h:outputText value="#{treino.dataCriacao.time}">
+						</h:outputText>
 						
 						<p:commandLink update="" process="">
 							<h:outputText styleClass="ui-icon ui-icon-search"

@@ -30,9 +30,6 @@ public class Treino implements Serializable {
 	@ManyToMany(fetch = FetchType.LAZY)
 	private List<Exercicio> exercicios = new ArrayList<Exercicio>();
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	private Usuario usuario;
-
 	public Integer getId() {
 		return id;
 	}
@@ -65,12 +62,4 @@ public class Treino implements Serializable {
 		this.exercicios = exercicios;
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
-	
 }

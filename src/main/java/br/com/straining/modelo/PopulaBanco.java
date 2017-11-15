@@ -88,9 +88,9 @@ public class PopulaBanco {
 		Exercicio exercicio63 = new Exercicio("Levantamento terra, pernas estendidas",GrupoMuscular.COSTAS,null,null,null,null);
 		Exercicio exercicio64 = new Exercicio("Extensão do tronco sobre um banco específico",GrupoMuscular.COSTAS,null,null,null,null);
 		Exercicio exercicio65 = new Exercicio("Puxada vertical com barra, mãos juntas",GrupoMuscular.COSTAS,null,null,null,null);
-		Exercicio exercicio66 = new Exercicio("Elevação dos OMBROSs com barra",GrupoMuscular.COSTAS,null,null,null,null);
-		Exercicio exercicio67 = new Exercicio("Elevação e rotação dos OMBROSs com halteres",GrupoMuscular.COSTAS,null,null,null,null);
-		Exercicio exercicio68 = new Exercicio("Elevação dos OMBROSs com multi-exercitador ou com aparelho específico",GrupoMuscular.COSTAS,null,null,null,null);
+		Exercicio exercicio66 = new Exercicio("Elevação dos ombros com barra",GrupoMuscular.COSTAS,null,null,null,null);
+		Exercicio exercicio67 = new Exercicio("Elevação e rotação dos ombros com halteres",GrupoMuscular.COSTAS,null,null,null,null);
+		Exercicio exercicio68 = new Exercicio("Elevação dos ombros com multi-exercitador ou com aparelho específico",GrupoMuscular.COSTAS,null,null,null,null);
 		Exercicio exercicio69 = new Exercicio("O agachamento",GrupoMuscular.PERNAS,null,null,null,null);
 		Exercicio exercicio70 = new Exercicio("Agachamento com as pernas afastadas",GrupoMuscular.PERNAS,null,null,null,null);
 		Exercicio exercicio71 = new Exercicio("Agachamento com a barra na frente",GrupoMuscular.PERNAS,null,null,null,null);

@@ -11,6 +11,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.straining.dao.TreinoDao;
+import br.com.straining.dao.UsuarioDao;
 import br.com.straining.modelo.Treino;
 import br.com.straining.modelo.Usuario;
 
@@ -25,12 +26,22 @@ public class PrincipalBean implements Serializable {
 	@Inject
 	private TreinoDao treinoDao;
 	
+	@Inject
+	private UsuarioDao usuarioDao;
+	
+	private Usuario usuario = new Usuario();
+	
 	private List<Treino> treinos = new ArrayList<Treino>();
 
+	
 	@PostConstruct
 	public void init() {
 		Usuario sessao = (Usuario) context.getExternalContext().getSessionMap().get("usuarioLogado");
-		treinos = treinoDao.buscaTreinosPorIdUsuario(sessao.getId());
+		usuario = usuarioDao.buscaPorId(sessao.getId());
+		
+		treinos = usuario.getTreinos();
+		System.out.println(treinos.size());
+		
 	}
 
 	public List<Treino> getTreinos() {
@@ -41,6 +52,5 @@ public class PrincipalBean implements Serializable {
 		this.treinos = treinos;
 	}
 
-	
 
 }
