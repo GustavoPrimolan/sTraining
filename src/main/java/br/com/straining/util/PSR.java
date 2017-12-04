@@ -44,7 +44,7 @@ public class PSR implements Serializable {
 
 		// SE HOMEM, IMC TERÁ OUTROS VALORES PARA CONDIÇÃO
 		if (usuario.getSexo().equals(Sexo.MASCULINO)) {
-
+			System.out.println("IMC: " + imc);
 			// ABAIXO DO PESO OU MARGINALMENTE ACIMA DO PESO
 			if (imc < 20.7 || imc >= 26.4 && imc < 27.8) {
 				quantidadeSubtrair = 1;
@@ -76,7 +76,7 @@ public class PSR implements Serializable {
 
 			// SE NÃO, SEXO FEMININO
 		} else {
-
+			System.out.println("IMC: " + imc);
 			// ABAIXO DO PESO OU MARGINALMENTE ACIMA DO PESO
 			if (imc < 19.1 || imc >= 26.4 && imc < 27.8) {
 				quantidadeSubtrair = 1;
